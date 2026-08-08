@@ -120,6 +120,7 @@ function greetAnimal(){
 setTimeout(greetAnimal, 3000)
 
 // counter
+/*
 let count = 5
 function counter(){
   console.log(count)
@@ -129,4 +130,35 @@ function counter(){
   }
   count--
 }
-const time = setInterval(counter, 1000)
+const time = setInterval(counter, 1000);
+*/
+
+// time betwwen setTimeout call and inner function actually running
+function test(){
+  const newTime = new Date().getTime()
+  console.log(newTime-oldTime);
+  console.log("Hello ji");
+}
+const oldTime = new Date().getTime()
+setTimeout(test, 1000);
+
+// Terminal clock (HH:MM:SS)
+function clock(){
+  console.clear()
+  const now = new Date()
+  const hour = now.getHours()
+  const min = now.getMinutes()
+  const sec = now.getSeconds()
+
+  const terminalClock = `${String(hour).padStart(2,'0')}:${String(min).padStart(2,'0')}:${String(sec).padStart(2,'0')}`
+  console.log(terminalClock)
+}
+setInterval(clock,1000)
+const now = new Date();
+
+console.log(
+  now.toLocaleTimeString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour12: false
+  })
+);
