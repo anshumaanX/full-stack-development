@@ -68,3 +68,65 @@ for(let i = randomArray.length-1; i>= 0; i--){
   reversedArray.push(randomArray[i])
 }
 console.log(reversedArray)
+
+
+// functions
+function sum(a,b){
+  const sumValue = a + b
+  return sumValue
+}
+
+let value = sum(2,5)
+console.log(value)
+
+// single threaded nature of js. CPU core one of the thread will reach 100%
+/*
+let calculatedValue = 0
+for(let i = 0; i<10000000000; i++){
+  calculatedValue += i
+}
+console.log(calculatedValue)
+*/
+
+// callbacks
+// without callback
+function sumIt(num1, num2){
+  let result = num1 + num2
+  return result
+}
+
+function displayResult(data){
+  console.log("Result of sum is ", data)
+  return data
+}
+function displayResultPassive(data){
+  console.log("sums result is ", data)
+}
+val = displayResult(sumIt(1,5))
+console.log(val)
+
+// with callbacks
+function callback(a, b, cb){
+  let result = a + b;
+  cb(result);
+}
+callback(2,5,displayResultPassive)
+callback(2,5,displayResult)
+
+// setTimeout
+function greetAnimal(){
+  console.log("Good morning dear Tiger")
+}
+setTimeout(greetAnimal, 3000)
+
+// counter
+let count = 5
+function counter(){
+  console.log(count)
+  if(count==0){
+    clearInterval(time)
+    return;
+  }
+  count--
+}
+const time = setInterval(counter, 1000)
