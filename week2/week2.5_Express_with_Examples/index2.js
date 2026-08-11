@@ -58,6 +58,6 @@ app.get('/', function (req, res) {
   });
 });
 
-app.listen(port, () => {
+app.listen(port, function() {
   console.log(`Server is listining at port ${port}`)
 })
