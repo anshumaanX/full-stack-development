@@ -1,16 +1,15 @@
 {
-  "name": "week-2",
+  "name": "week2.5_express_with_examples",
   "version": "1.0.0",
-  "description": "",
-  "main": "expressAndBackend.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "description": "",
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.1.0"
   }
 }

@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "name": "week1.2_js_foundation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "dev" : "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
