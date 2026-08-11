@@ -3,6 +3,8 @@ const app = express()
 
 const port = 3000;
 
+app.use(express.json())
+
 const users = [{
   id: 1,
   name: "Oggy",
@@ -57,6 +59,42 @@ app.get('/', function (req, res) {
     message: "Name not found"
   });
 });
+
+app.post("/", function(req,res){
+  const name = req.query.name;
+  const kidney = req.body.kidney;
+  console.log(kidney)
+  if(!name){
+    return res.status(411).json({
+      message:"Please Enter your name"
+    })
+  }
+  if(!kidney){
+    return res.status(411).json({
+      message: "kidney is required!"
+    })
+  }
+  if(typeof kidney !== 'object' ||
+     kidney === null ||
+     typeof kidney.isHealthy !== "boolean"
+  ){
+    return res.status(400).json({
+    message: "Invalid kidney format"
+  });
+  }
+  for(let i = 0; i< users.length; i++){
+    if(users[i].name === name){
+      users[i].kidney.push(kidney)
+
+      return res.status(201).json({
+        messgae: "Kidney added successfully"
+      })
+    }
+  }
+  return res.status(404).json({
+    message:"Name not found"
+  })
+})
 
 app.listen(port, function() {
   console.log(`Server is listining at port ${port}`)
