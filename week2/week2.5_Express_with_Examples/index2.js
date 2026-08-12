@@ -60,30 +60,30 @@ app.get('/', function (req, res) {
   });
 });
 
-app.post("/", function(req,res){
+app.post("/", function (req, res) {
   const name = req.query.name;
   const kidney = req.body.kidney;
   console.log(kidney)
-  if(!name){
+  if (!name) {
     return res.status(411).json({
-      message:"Please Enter your name"
+      message: "Please Enter your name"
     })
   }
-  if(!kidney){
+  if (!kidney) {
     return res.status(411).json({
       message: "kidney is required!"
     })
   }
-  if(typeof kidney !== 'object' ||
-     kidney === null ||
-     typeof kidney.isHealthy !== "boolean"
-  ){
+  if (typeof kidney !== 'object' ||
+    kidney === null ||
+    typeof kidney.isHealthy !== "boolean"
+  ) {
     return res.status(400).json({
-    message: "Invalid kidney format"
-  });
+      message: "Invalid kidney format"
+    });
   }
-  for(let i = 0; i< users.length; i++){
-    if(users[i].name === name){
+  for (let i = 0; i < users.length; i++) {
+    if (users[i].name === name) {
       users[i].kidney.push(kidney)
 
       return res.status(201).json({
@@ -92,10 +92,35 @@ app.post("/", function(req,res){
     }
   }
   return res.status(404).json({
-    message:"Name not found"
+    message: "Name not found"
   })
 })
 
-app.listen(port, function() {
+app.put("/", function (req, res) {
+  const name = req.query.name;
+  if (!name) {
+    return res.status(411).json({
+      message: "Name is required!"
+    })
+  }
+  for (let i = 0; i < users.length; i++) {
+    if (users[i].name === name) {
+
+      for (let j = 0; j < users[i].kidney.length; j++) {
+        users[i].kidney[j].isHealthy = true
+      }
+      return res.status(200).json({
+        message: "All kidneys are now healthy"
+      });
+    }
+  }
+  return res.status(404).json({
+    message: "Name not found"
+  })
+})
+
+
+
+app.listen(port, function () {
   console.log(`Server is listining at port ${port}`)
 })
