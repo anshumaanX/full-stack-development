@@ -119,7 +119,31 @@ app.put("/", function (req, res) {
   })
 })
 
+app.delete("/", function (req, res) {
+  const name = req.query.name;
+  if (!name) {
+    return res.status(411).json({
+      message: "Name is required!"
+    })
+  }
+  for (let i = 0; i < users.length; i++) {
+    if (users[i].name === name) {
+      let refreshedKidneys = [];
+      for (let j = 0; j < users[i].kidney.length; j++) {
+        if (users[i].kidney[j].isHealthy)
+          refreshedKidneys.push(users[i].kidney[j])
+      }
+      users[i].kidney = refreshedKidneys;
 
+      return res.status(200).json({
+        message: "All unHealthy kidneys deleted suucessfully!"
+      })
+    }
+  }
+  return res.status(404).json({
+    message: "Name not found!"
+  })
+})
 
 app.listen(port, function () {
   console.log(`Server is listining at port ${port}`)
