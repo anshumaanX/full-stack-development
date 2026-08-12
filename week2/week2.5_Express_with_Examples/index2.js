@@ -128,16 +128,33 @@ app.delete("/", function (req, res) {
   }
   for (let i = 0; i < users.length; i++) {
     if (users[i].name === name) {
-      let refreshedKidneys = [];
-      for (let j = 0; j < users[i].kidney.length; j++) {
-        if (users[i].kidney[j].isHealthy)
-          refreshedKidneys.push(users[i].kidney[j])
+      function isTheirUnHealthyKidney () {
+        let unHealthyKidney = false;
+        for(let k = 0; k< users[i].kidney.length; k++){
+          if(!users[i].kidney[k].isHealthy){
+            unHealthyKidney = true
+            break;
+          }
+        }
+        return unHealthyKidney
       }
-      users[i].kidney = refreshedKidneys;
+      if(isTheirUnHealthyKidney()){
 
-      return res.status(200).json({
-        message: "All unHealthy kidneys deleted suucessfully!"
-      })
+        let refreshedKidneys = [];
+        for (let j = 0; j < users[i].kidney.length; j++) {
+          if (users[i].kidney[j].isHealthy)
+            refreshedKidneys.push(users[i].kidney[j])
+        }
+        users[i].kidney = refreshedKidneys;
+        
+        return res.status(200).json({
+          message: "All unHealthy kidneys deleted suucessfully!"
+        })
+      }else {
+        return res.status(400).json({
+          message: "No unhealthy kidney found for removing!"
+        })
+      }
     }
   }
   return res.status(404).json({
