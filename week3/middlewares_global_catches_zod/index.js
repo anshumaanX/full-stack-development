@@ -79,6 +79,14 @@ app.get('/heart-check', authUser, (req, res) => {
   })
 })
 
+app.use((err, req, res, next)=>{
+  console.log(err)
+
+  return res.status(500).json({
+    message: "Something went wrong!"
+  })
+})
+
 app.listen(port, () => {
   console.log(`Server is up at port ${port}`)
 })
