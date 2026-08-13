@@ -43,15 +43,33 @@ function authUser(req, res, next) {
   })
 }
 
-app.get('/health-checkup', authUser, (req, res) => {
+
+function validateKidneyInput(req, res, next) {
+  const { kidneyId } = req.query;
+
+  if (!kidneyId) {
+    return res.status(400).json({
+      message: "Enter kidney id!"
+    });
+  }
+
+  if (kidneyId !== "1" && kidneyId !== "2") {
+    return res.status(400).json({
+      message: "Invalid kidney id!"
+    });
+  }
+
+  return next();
+}
+app.get('/health-checkup', authUser, validateKidneyInput, (req, res) => {
 
 })
 
-app.get('/kidney-check', authUser, (req, res) => {
+app.get('/kidney-check', authUser, validateKidneyInput, (req, res) => {
 
 })
 
-app.get('/heart-check', authUser, (req, res) => {
+app.get('/heart-check', authUser, validateKidneyInput, (req, res) => {
 
 })
 
