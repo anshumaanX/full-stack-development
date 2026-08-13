@@ -3,10 +3,16 @@ const app = express()
 
 const port = 3000;
 
-app.get('/', (req,res) => {
-  res.json({
-    message: "hello"
-  })
+app.get('/health-checkup', (req,res) => {
+  
+})
+
+app.get('/kidney-check', (req,res)=> {
+
+})
+
+app.get('/heart-check', (req,res)=> {
+  
 })
 
 app.listen(port, ()=> {
