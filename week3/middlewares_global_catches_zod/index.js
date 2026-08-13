@@ -7,20 +7,10 @@ app.use(express.json())
 
 const users = [{
   pass: 11,
-  name: "Oggy",
-  kidney: [
-    {
-      isHealthy: false,
-    }, {
-      isHealthy: true
-    }
-  ]
+  name: "Oggy"
 }, {
   pass: 22,
-  name: "Jack",
-  kidney: [{
-    isHealthy: true
-  }]
+  name: "Jack"
 }]
 
 function authUser(req, res, next) {
@@ -58,19 +48,35 @@ function validateKidneyInput(req, res, next) {
       message: "Invalid kidney id!"
     });
   }
-
+  req.kidneyId = kidneyId
   return next();
 }
 app.get('/health-checkup', authUser, validateKidneyInput, (req, res) => {
-
+  if(req.kidneyId === "1"){
+    return res.status(200).json({
+      message: `Hello ${req.name}. Your kidney status is not good. Need to maintain a proper diet!`
+    })
+  }
+  return res.status(200).json({
+    message: `Hello ${req.name}. Your health is good`
+  })
 })
 
 app.get('/kidney-check', authUser, validateKidneyInput, (req, res) => {
-
+  if(req.kidneyId = "1"){
+    return res.status(200).json({
+      message: `Hello ${req.name}. You have only ${req.kidneyId} kidney. You need to take control on your sugar and BP!`
+    })
+  }
+  return res.status(200).json({
+    message: `Hello ${req.name}. Your both kidneys are fine. Just maintain health diet.`
+  })
 })
 
-app.get('/heart-check', authUser, validateKidneyInput, (req, res) => {
-
+app.get('/heart-check', authUser, (req, res) => {
+  return res.status(200).json({
+    message: `Hello ${req.name}. Your heart is fine. Just maintain health diet.`
+  })
 })
 
 app.listen(port, () => {
