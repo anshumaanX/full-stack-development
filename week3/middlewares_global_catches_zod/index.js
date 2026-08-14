@@ -15,7 +15,6 @@ const users = [{
 
 function authUser(req, res, next) {
   if(!req.body){
-    console.log(req.body)
     return res.status(411).json({
       message: "Please input name and pass"
     })
