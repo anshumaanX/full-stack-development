@@ -1,10 +1,20 @@
 const express = require('express')
+const z = require('zod')
+
 const app = express()
 
 const port = 3000;
 
 app.use(express.json())
 
+const userSchema = z.object({
+  name: z.string(),
+  pass: z.number()
+})
+
+const kidneySchema = z.object({
+  kidneyId: z.enum(["1", "2"])
+})
 const users = [{
   pass: 11,
   name: "Oggy"
@@ -19,9 +29,11 @@ function authUser(req, res, next) {
       message: "Please input name and pass"
     })
   }
-  const { name, pass } = req.body;
+  const result = userSchema.safeParse(req.body);
+  const {name, pass} = result.data;
 
   for (let i = 0; i < users.length; i++) {
+
     if (name === users[i].name && pass === users[i].pass) {
       req.name = users[i].name;
       return next()
@@ -34,13 +46,15 @@ function authUser(req, res, next) {
 
 
 function validateKidneyInput(req, res, next) {
-  const { kidneyId } = req.query;
 
-  if (!kidneyId) {
+  const result = kidneySchema.safeParse(req.query)
+  if(!result.success){
     return res.status(400).json({
-      message: "Enter kidney id!"
-    });
+      message: "Invalid kidneyId !"
+    })
   }
+  const kidneyId = result.data.kidneyId
+
 
   if (kidneyId !== "1" && kidneyId !== "2") {
     return res.status(400).json({
