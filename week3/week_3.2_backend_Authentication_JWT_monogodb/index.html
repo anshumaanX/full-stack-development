@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body style="background-color: black; color: white">
+    <button onclick="getData2()">Fetch Data</button>
+    <div id = "display">
+      Click to get data here ..............
+    </div>
+    <script>
+      function getData2() {
+        fetch("http://localhost:3000/persons")
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((err) => {
+            console.log("Error:", err);
+          });
+      }
+      async function getData2() {
+        const res = await fetch("http://localhost:3000/persons");
+        const data = await res.json();
+        console.log(data);
+
+        const div = document.getElementById("display")
+        div.innerHTML = `<pre>${JSON.stringify(data.data, null, 2)}</pre>`;
+      }
+    </script>
+  </body>
+</html>
