@@ -5,16 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
-<body>
-  <input type = "text" placeholder="first number"> <br></br>
-  <input type="text" placeholder="second number"> <br></br>
+<body style = "background-color: black; color: white;">
+  <input id="num1" type = "text" placeholder="first number"> <br></br>
+  <input id="num2" type="text" placeholder="second number"> <br></br>
   <button onclick="populateDiv()">Calculate sum</button>
   <div id="finalSum">Hi there</div>
 
   <script>
     function populateDiv(){
+      const val1 = document.getElementById("num1").value
+      const val2 = document.getElementById("num2").value
+      const output = parseInt(val1) + parseInt(val2) 
+
       const result = document.getElementById("finalSum")
-      result.innerHTML = "Hello world"
+      result.innerHTML = `Sum of ${val1} and ${val2} is ${output}`
     }
   </script>
 </body>
