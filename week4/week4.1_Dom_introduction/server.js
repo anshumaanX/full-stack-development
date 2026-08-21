@@ -7,7 +7,6 @@ app.use(cors())
 
 app.get('/sum', (req, res) => {
   const { a, b } = req.query
-  console.log(a,b)
   if (!a || !b) {
     return res.status(400).json({
       message: "Please provide both a and b!"

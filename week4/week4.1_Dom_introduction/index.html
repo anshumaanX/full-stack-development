@@ -6,20 +6,27 @@
   <title>Document</title>
 </head>
 <body style = "background-color: black; color: white;">
-  <input id="num1" type = "text" placeholder="first number"> <br></br>
-  <input id="num2" type="text" placeholder="second number"> <br></br>
+  <input oninput="debounce()" id="num1" type = "text" placeholder="first number"> <br></br>
+  <input oninput="debounce()" id="num2" type="text" placeholder="second number"> <br></br>
   <button onclick="populateDiv()">Calculate sum</button>
   <button onclick="getData()">Fetch Data</button>
   <div id="finalSum">Hi there</div>
 
   <script>
 
+    let interval;
+    function debounce(){
+      clearTimeout(interval)
+      interval = setTimeout(()=>{
+        getData()
+      },500)
+
+    }
     async function getData(){
       const val1 = document.getElementById("num1").value
       const val2 = document.getElementById("num2").value
       const response = await fetch(`http://localhost:3000/sum?a=${val1}&b=${val2}`)
       const data = await response.json()
-      console.log(data)
       const result = document.getElementById("finalSum")
       result.innerHTML = data.message
     }
