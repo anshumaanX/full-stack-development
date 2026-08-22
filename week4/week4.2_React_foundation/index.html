@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To do list</title>
+</head>
+<body>
+  <div>
+    <input id="title" type="text" placeholder="title"><br></br>
+    <input id="desc" type="text" placeholder="description"><br></br>
+    <button onclick="appendTodo()">Add Todo</button>
+    <div id="output">todo</div>
+  </div>
+  
+  <script>
+    function appendTodo(){
+      const title = document.getElementById("title").value
+      const desc = document.getElementById("desc").value
+      const parentDiv = document.getElementById("output")
+      const child1 = document.createElement('div')
+      const child2 = document.createElement('div')
+      const child3 = document.createElement('div')
+      child1.innerHTML = `<b>${title}</b>`
+      child2.innerHTML = `${desc}`
+      child3.innerHTML = `<button>Mark as completed!</button>`
+        parentDiv.appendChild(child1)
+        parentDiv.appendChild(child2)
+        parentDiv.appendChild(child3)
+    }
+  </script>
+</body>
+</html>
