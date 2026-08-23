@@ -1,16 +1,20 @@
+import userSignupSchema from "../../validators/auth.validator.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 
 export const signup = async (req,res) => {
   try{
-    const { name, email, password } = req.body;
 
-    if(!name || !email || !password){
-      return res.status(400).json({
+    const result = userSignupSchema.safeParse(req.body);
+
+    if(!result.success) {
+        return res.status(400).json({
         success: false,
-        message: "Name, email and password are required",
+        message: "Validation failed",
+        error: result.error.issues,
       });
-    };
+    }
+    const { name, email, password } = result.data;
 
     const existingUser = await User.findOne({ email });
 
