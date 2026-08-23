@@ -1,4 +1,6 @@
 import userSignupSchema from "../../validators/auth.validator.js";
+import generateToken from "../utils/generateToken.js";
+import setAuthCookie from "../utils/setAuthCookie.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 
@@ -32,6 +34,9 @@ export const signup = async (req,res) => {
       email,
       password: hashedPassword
     });
+
+    const token = generateToken(user._id);
+    setAuthCookie(res, token)
 
     return res.status(201).json({
       success: true,
