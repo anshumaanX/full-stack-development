@@ -1,4 +1,4 @@
-import userSignupSchema from "../../validators/auth.validator.js";
+import signupSchema from "../../validators/auth.validator.js";
 import generateToken from "../utils/generateToken.js";
 import setAuthCookie from "../utils/setAuthCookie.js";
 import User from "../models/user.model.js";
@@ -7,7 +7,7 @@ import bcrypt from "bcryptjs";
 export const signup = async (req,res) => {
   try{
 
-    const result = userSignupSchema.safeParse(req.body);
+    const result = signupSchema.safeParse(req.body);
 
     if(!result.success) {
         return res.status(400).json({
