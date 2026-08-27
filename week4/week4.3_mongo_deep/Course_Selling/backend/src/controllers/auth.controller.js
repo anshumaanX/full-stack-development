@@ -109,3 +109,20 @@ export const Login = async (req,res) => {
     });
   }
 };
+
+
+export const getMe = async (req,res) => {
+  return res.status(200).json({
+    success: true,
+    user: req.user
+  })
+};
+
+export const logout = async (req,res) => {
+  res.clearCookie("token");
+
+  return res.status(200).json({
+    success: true,
+    message: "Logout successful"
+  });
+};
