@@ -1,6 +1,9 @@
 import { signupSchema, LoginSchema } from "../../validators/auth.validator.js";
 import generateToken from "../utils/generateToken.js";
-import setAuthCookie from "../utils/setAuthCookie.js";
+import {
+  setAuthCookie,
+  clearAuthCookie,
+} from "../utils/setAuthCookie.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 
@@ -119,7 +122,7 @@ export const getMe = async (req,res) => {
 };
 
 export const logout = async (req,res) => {
-  res.clearCookie("token");
+  clearAuthCookie(res);
 
   return res.status(200).json({
     success: true,
