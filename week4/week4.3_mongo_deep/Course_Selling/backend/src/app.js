@@ -4,7 +4,8 @@ import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth.routes.js';
 import adminRoutes from './routes/admin.routes.js';
-import courseRoutes from './routes/course.routes.js'
+import courseRoutes from './routes/course.routes.js';
+import purchaseRoutes from "./routes/purchase.routes.js";
 
 const app = express();
 
@@ -16,5 +17,6 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/courses", courseRoutes);
+app.use("/api/purchases", purchaseRoutes);
 
 export default app;
