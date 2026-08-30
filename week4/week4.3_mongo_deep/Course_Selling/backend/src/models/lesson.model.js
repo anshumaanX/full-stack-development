@@ -1,0 +1,46 @@
+import mongoose from "mongoose";
+
+const lessonSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    description: {
+      type: String,
+      trim: true,
+    },
+
+    videoUrl: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    order: {
+      type: Number,
+      required: true,
+      min: 1,
+    },
+
+    course: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Course",
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+lessonSchema.index(
+  { course: 1, order: 1 },
+  { unique: true }
+);
+
+const Lesson = mongoose.model("Lesson", lessonSchema);
+
+export default Lesson;

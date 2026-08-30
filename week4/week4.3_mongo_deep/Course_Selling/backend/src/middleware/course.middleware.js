@@ -3,9 +3,9 @@ import Course from "../models/course.model.js";
 
 const courseOwnershipMiddleware  = async (req,res,next) => {
   try {
-    const { id } = req.params;
+    const courseId = req.params.id || req.params.courseId;
 
-    const course = await Course.findById(id);
+    const course = await Course.findById(courseId);
 
     if (!course) {
       return res.status(404).json({

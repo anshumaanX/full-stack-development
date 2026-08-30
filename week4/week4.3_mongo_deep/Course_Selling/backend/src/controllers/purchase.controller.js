@@ -58,3 +58,25 @@ export const purchaseCourse = async (req, res) => {
     });
   }
 };
+
+export const getMyCourses = async (req, res) => {
+  try {
+    const purchases = await Purchase.find({
+      user: req.user._id,
+    })
+      .populate("course", "title description price thumbnail instructor")
+      .sort({ createdAt: -1 });
+
+    return res.status(200).json({
+      success: true,
+      courses: purchases,
+    });
+  } catch (error) {
+    console.error("Get my courses error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+    });
+  }
+};
